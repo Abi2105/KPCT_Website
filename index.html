@@ -284,6 +284,7 @@
     grid-template-columns:1.3fr 1fr;
     gap:48px;
   }
+  .contact-head{max-width:1280px;margin:0 auto 48px;}
   .contact .section-head h2{color:#fff;}
   .contact .section-head::before,
   .contact .section-head::after{background:rgba(255,255,255,0.25);}
@@ -305,9 +306,11 @@
     transition:background .2s ease;
   }
   .socials a:hover{background:rgba(255,255,255,0.2);}
-  .contact-links ul{list-style:none;}
-  .contact-links li{margin-bottom:14px;}
-  .contact-links a{color:#D6E2E8;font-size:0.98rem;}
+  .contact-links ul{list-style:none;display:flex;flex-direction:column;gap:18px;margin:0;padding:0;}
+  .contact-links{padding-top:0;display:flex;justify-content:flex-end;}
+  .contact-links li{display:flex;align-items:center;gap:12px;}
+  .contact-links .star{color:#8B7BD8;font-size:1rem;flex-shrink:0;}
+  .contact-links a{color:#D6E2E8;font-size:1rem;font-weight:500;}
   .contact-links a:hover{color:var(--sky);}
   footer{
     text-align:center;
@@ -436,20 +439,20 @@
 </section>
 
 <section class="contact" id="contact">
+  <div class="section-head contact-head"><h2>Contact Us</h2></div>
   <div class="contact-inner">
     <div>
-      <div class="section-head"><h2>Contact Us</h2></div>
       <div class="contact-block">
         <h4>Address</h4>
-        <p>No - 141 Dr.Linguswamy Naidu School Street, Tiruttani - 621309</p>
+        <p>No.141, Dr.Genguswamy Naidu School Street, Tiruttani – 631 209</p>
       </div>
       <div class="contact-block">
         <h4>Email Address</h4>
-        <p>ksatiyarajgcare@gmail.com</p>
+        <p>kpcttrt@gmail.com</p>
       </div>
       <div class="contact-block">
         <h4>Phone Number</h4>
-        <p>9840551651</p>
+        <p>7708162084</p>
       </div>
       <div class="socials">
         <a href="https://www.facebook.com/profile.php?id=61573678962768" aria-label="Facebook" target="_blank" rel="noopener">f</a>
@@ -465,12 +468,12 @@
     </div>
     <div class="contact-links">
       <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#achievements">Achievements</a></li>
-        <li><a href="#activities">Activities</a></li>
-        <li><a href="#reports">Reports</a></li>
-        <li><a href="#contact">Contact Us</a></li>
+        <li><span class="star">&#10022;</span><a href="#home">Home</a></li>
+        <li><span class="star">&#10022;</span><a href="#about">About Us</a></li>
+        <li><span class="star">&#10022;</span><a href="#achievements">Achievements</a></li>
+        <li><span class="star">&#10022;</span><a href="#activities">Activities</a></li>
+        <li><span class="star">&#10022;</span><a href="#reports">Reports</a></li>
+        <li><span class="star">&#10022;</span><a href="#contact">Contact Us</a></li>
       </ul>
     </div>
   </div>
