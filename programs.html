@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programs | KPCT - Kandhasamy Public Charitable Trust</title>
+<link rel="icon" href="images/logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --primary: #1b5e3f;
+    --secondary: #2d7a52;
+    --accent: #52b788;
+    --light-bg: #f1faf7;
+    --text-dark: #1a3a34;
+    --text-light: #666;
+    --border: #d4e9e0;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-dark);
+    background: #fff;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary);
+  }
+
+  /* HEADER */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .logo-text h2 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .logo-text p {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+  }
+
+  nav a {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+  }
+
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+
+  nav a:hover::after {
+    width: 100%;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: #fff;
+    padding: 80px 60px;
+    text-align: center;
+  }
+
+  .page-header h1 {
+    font-size: 3rem;
+    color: #fff;
+    margin-bottom: 15px;
+  }
+
+  .page-header p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 60px;
+  }
+
+  .programs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+
+  .program-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .program-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border-color: var(--accent);
+  }
+
+  .program-header {
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+    color: #fff;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .program-icon {
+    font-size: 2.5rem;
+  }
+
+  .program-card h2 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .program-body {
+    padding: 30px;
+  }
+
+  .program-body h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+
+  .program-body p {
+    color: var(--text-light);
+    margin-bottom: 15px;
+  }
+
+  .highlights {
+    background: var(--light-bg);
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 20px;
+  }
+
+  .highlights h4 {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+  }
+
+  .highlights ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    padding: 5px 0;
+    padding-left: 20px;
+    color: var(--text-light);
+    position: relative;
+    font-size: 0.9rem;
+  }
+
+  .highlights li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--primary);
+    color: #fff;
+    padding: 60px;
+    text-align: center;
+  }
+
+  .footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+    text-align: left;
+  }
+
+  .footer-section h4 {
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+  }
+
+  .footer-section p,
+  .footer-section a {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    text-decoration: none;
+  }
+
+  .footer-section a:hover {
+    color: var(--accent);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 30px;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 1024px) {
+    header {
+      padding: 15px 30px;
+    }
+
+    nav ul {
+      gap: 20px;
+    }
+
+    .programs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+      grid-template-columns: 1fr;
+    }
+
+    .content {
+      padding: 60px 30px;
+    }
+
+    .page-header {
+      padding: 60px 30px;
+    }
+
+    .page-header h1 {
+      font-size: 2.2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    nav ul {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .page-header h1 {
+      font-size: 1.8rem;
+    }
+
+    .program-header {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-section">
+    <img src="images/logo.png" alt="KPCT Logo" class="logo-img">
+    <div class="logo-text">
+      <h2>KPCT</h2>
+      <p>Empowering Communities</p>
+    </div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="programs.html">Programs</a></li>
+      <li><a href="documents.html">Documents</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1>Our Programs</h1>
+  <p>Transforming lives through education, healthcare, and community empowerment</p>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <div class="programs-grid">
+    <!-- EDUCATION PROGRAM -->
+    <div class="program-card">
+      <div class="program-header">
+        <h2>Education Program</h2>
+        <div class="program-icon">📚</div>
+      </div>
+      <div class="program-body">
+        <h3>Empowering Through Quality Education</h3>
+        <p>KPCT is committed to providing underprivileged children with access to quality education through comprehensive support and innovative learning approaches.</p>
+        
+        <div class="highlights">
+          <h4>Program Components:</h4>
+          <ul>
+            <li>Free tuition and coaching for underprivileged children</li>
+            <li>Educational scholarships and financial assistance</li>
+            <li>Digital literacy and computer training programs</li>
+            <li>Mentorship and career guidance for students</li>
+            <li>School supplies and educational materials provision</li>
+            <li>Support for school infrastructure development</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEALTHCARE PROGRAM -->
+    <div class="program-card">
+      <div class="program-header">
+        <h2>Healthcare Services</h2>
+        <div class="program-icon">⚕️</div>
+      </div>
+      <div class="program-body">
+        <h3>Building Healthier Communities</h3>
+        <p>Through preventive and curative healthcare initiatives, KPCT ensures that quality medical care and health awareness reach the most vulnerable communities.</p>
+        
+        <div class="highlights">
+          <h4>Program Components:</h4>
+          <ul>
+            <li>Free medical camps and health check-ups</li>
+            <li>Health awareness and disease prevention programs</li>
+            <li>Nutrition and hygiene education initiatives</li>
+            <li>Mental health support and counseling services</li>
+            <li>Emergency medical assistance and support</li>
+            <li>Maternal and child health initiatives</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- WOMEN EMPOWERMENT -->
+    <div class="program-card">
+      <div class="program-header">
+        <h2>Women Empowerment</h2>
+        <div class="program-icon">👩‍💼</div>
+      </div>
+      <div class="program-body">
+        <h3>Strengthening Women's Independence</h3>
+        <p>KPCT recognizes the critical role of women in community development and provides comprehensive support for their economic and social empowerment.</p>
+        
+        <div class="highlights">
+          <h4>Program Components:</h4>
+          <ul>
+            <li>Skill development and vocational training</li>
+            <li>Self-help groups and cooperative formation</li>
+            <li>Financial literacy and microfinance support</li>
+            <li>Entrepreneurship and business training</li>
+            <li>Gender sensitization and women's rights awareness</li>
+            <li>Income generation and livelihood programs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMUNITY DEVELOPMENT -->
+    <div class="program-card">
+      <div class="program-header">
+        <h2>Community Development</h2>
+        <div class="program-icon">🌍</div>
+      </div>
+      <div class="program-body">
+        <h3>Building Sustainable Communities</h3>
+        <p>KPCT works with communities to address fundamental development challenges and create conditions for sustainable growth and self-reliance.</p>
+        
+        <div class="highlights">
+          <h4>Program Components:</h4>
+          <ul>
+            <li>Sanitation and clean water initiatives</li>
+            <li>Environmental conservation and afforestation</li>
+            <li>Disaster relief and rehabilitation support</li>
+            <li>Community infrastructure development</li>
+            <li>Social welfare support for vulnerable groups</li>
+            <li>Community organizing and mobilization</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVELIHOOD SUPPORT -->
+    <div class="program-card">
+      <div class="program-header">
+        <h2>Livelihood Programs</h2>
+        <div class="program-icon">💼</div>
+      </div>
+      <div class="program-body">
+        <h3>Creating Economic Opportunities</h3>
+        <p>KPCT supports individuals and families to build sustainable livelihoods through skill development, business training, and market linkages.</p>
+        
+        <div class="highlights">
+          <h4>Program Components:</h4>
+          <ul>
+            <li>Skill-based vocational training programs</li>
+            <li>Job placement assistance and support</li>
+            <li>Entrepreneurship development and mentoring</li>
+            <li>Access to credit and financial services</li>
+            <li>Market linkage and value chain support</li>
+            <li>Business incubation and support services</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL WELFARE -->
+    <div class="program-card">
+      <div class="program-header">
+        <h2>Social Welfare</h2>
+        <div class="program-icon">🤝</div>
+      </div>
+      <div class="program-body">
+        <h3>Supporting Vulnerable Populations</h3>
+        <p>KPCT provides targeted support to elderly, disabled, and other vulnerable populations to ensure dignified living and social inclusion.</p>
+        
+        <div class="highlights">
+          <h4>Program Components:</h4>
+          <ul>
+            <li>Support for elderly and aged populations</li>
+            <li>Assistance for persons with disabilities</li>
+            <li>Orphan and vulnerable children support</li>
+            <li>Shelter and housing assistance</li>
+            <li>Food security and nutrition programs</li>
+            <li>Legal aid and advocacy services</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>About KPCT</h4>
+      <p>Kandhasamy Public Charitable Trust is dedicated to social development, education, healthcare, and community welfare.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="programs.html">Programs</a>
+      <a href="documents.html">Documents</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-section">
+      <h4>Get In Touch</h4>
+      <p>📧 kpcttrt@gmail.com</p>
+      <p>📱 7708162084</p>
+      <p>📍 Tiruttani, Tamil Nadu</p>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>&copy; 2026 Kandhasamy Public Charitable Trust. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

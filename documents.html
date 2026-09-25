@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documents & Transparency | KPCT</title>
+<link rel="icon" href="images/logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --primary: #1b5e3f;
+    --secondary: #2d7a52;
+    --accent: #52b788;
+    --light-bg: #f1faf7;
+    --text-dark: #1a3a34;
+    --text-light: #666;
+    --border: #d4e9e0;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-dark);
+    background: #fff;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary);
+  }
+
+  /* HEADER */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .logo-text h2 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .logo-text p {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+  }
+
+  nav a {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+  }
+
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+
+  nav a:hover::after {
+    width: 100%;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: #fff;
+    padding: 80px 60px;
+    text-align: center;
+  }
+
+  .page-header h1 {
+    font-size: 3rem;
+    color: #fff;
+    margin-bottom: 15px;
+  }
+
+  .page-header p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 60px;
+  }
+
+  .intro-section {
+    background: var(--light-bg);
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 60px;
+    border-left: 4px solid var(--accent);
+  }
+
+  .intro-section p {
+    color: var(--text-light);
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  /* DOCUMENT CATEGORIES */
+  .doc-category {
+    margin-bottom: 60px;
+  }
+
+  .doc-category h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .doc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .doc-card {
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .doc-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 8px 20px rgba(82, 183, 136, 0.15);
+    transform: translateY(-5px);
+  }
+
+  .doc-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+  }
+
+  .doc-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .doc-card p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .doc-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .btn-view {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-view:hover {
+    background: #3a9970;
+  }
+
+  .btn-download {
+    background: var(--primary);
+    color: #fff;
+  }
+
+  .btn-download:hover {
+    background: var(--secondary);
+  }
+
+  /* MODAL */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    overflow: auto;
+  }
+
+  .modal-content {
+    background: #fff;
+    margin: 5% auto;
+    padding: 0;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .modal-header {
+    background: var(--primary);
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-header h2 {
+    color: #fff;
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .close {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .close:hover {
+    opacity: 0.8;
+  }
+
+  .modal-body {
+    padding: 30px;
+    height: 500px;
+    overflow-y: auto;
+  }
+
+  .pdf-viewer {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  .pdf-placeholder {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-light);
+  }
+
+  .pdf-placeholder p {
+    margin: 20px 0;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--primary);
+    color: #fff;
+    padding: 60px;
+    text-align: center;
+  }
+
+  .footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+    text-align: left;
+  }
+
+  .footer-section h4 {
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+  }
+
+  .footer-section p,
+  .footer-section a {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    text-decoration: none;
+  }
+
+  .footer-section a:hover {
+    color: var(--accent);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 30px;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 1024px) {
+    header {
+      padding: 15px 30px;
+    }
+
+    nav ul {
+      gap: 20px;
+    }
+
+    .doc-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-content {
+      grid-template-columns: 1fr;
+    }
+
+    .content {
+      padding: 60px 30px;
+    }
+
+    .page-header {
+      padding: 60px 30px;
+    }
+
+    .page-header h1 {
+      font-size: 2.2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    nav ul {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .page-header h1 {
+      font-size: 1.8rem;
+    }
+
+    .doc-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+      width: 95%;
+      margin: 10% auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-section">
+    <img src="images/logo.png" alt="KPCT Logo" class="logo-img">
+    <div class="logo-text">
+      <h2>KPCT</h2>
+      <p>Empowering Communities</p>
+    </div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="programs.html">Programs</a></li>
+      <li><a href="documents.html">Documents</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1>Documents & Transparency</h1>
+  <p>View our reports, certifications, and compliance documents</p>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <div class="intro-section">
+    <p>KPCT believes in transparency and accountability. All our official documents, compliance certifications, annual reports, and CSR statements are available here for public access. We maintain the highest standards of financial integrity and governance.</p>
+  </div>
+
+  <!-- COMPLIANCE DOCUMENTS -->
+  <section class="doc-category">
+    <h2>Compliance & Certifications</h2>
+    
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-icon">✅</div>
+        <h3>12A Certificate</h3>
+        <p>Income Tax Exemption Certificate under Section 12A</p>
+        <div class="doc-buttons">
+          <button class="btn btn-view" onclick="openModal('12A')">View</button>
+          <a href="reports/12A.PDF" download class="btn btn-download">Download</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon">🏛️</div>
+        <h3>80G Certificate</h3>
+        <p>Donations Tax Exemption Certificate under Section 80G</p>
+        <div class="doc-buttons">
+          <button class="btn btn-view" onclick="openModal('80G')">View</button>
+          <a href="reports/80G.PDF" download class="btn btn-download">Download</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon">📋</div>
+        <h3>CSR Report</h3>
+        <p>Corporate Social Responsibility Report & Impact Statement</p>
+        <div class="doc-buttons">
+          <button class="btn btn-view" onclick="openModal('CSR')">View</button>
+          <a href="reports/CSR.PDF" download class="btn btn-download">Download</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon">📜</div>
+        <h3>Trust Deed</h3>
+        <p>Original Trust Deed & Registration Documents</p>
+        <div class="doc-buttons">
+          <button class="btn btn-view" onclick="openModal('DEED')">View</button>
+          <a href="reports/DEED.PDF" download class="btn btn-download">Download</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANNUAL REPORTS -->
+  <section class="doc-category">
+    <h2>Annual Reports</h2>
+    
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-icon">📊</div>
+        <h3>2024-2025</h3>
+        <p>Annual Report for FY 2024-2025</p>
+        <div class="doc-buttons">
+          <button class="btn btn-view" onclick="alert('Document coming soon')">View</button>
+          <a href="#" class="btn btn-download">Download</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon">📊</div>
+        <h3>2023-2024</h3>
+        <p>Annual Report for FY 2023-2024</p>
+        <div class="doc-buttons">
+          <button class="btn btn-view" onclick="alert('Document coming soon')">View</button>
+          <a href="#" class="btn btn-download">Download</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon">📊</div>
+        <h3>2022-2023</h3>
+        <p>Annual Report for FY 2022-2023</p>
+        <div class="doc-buttons">
+          <button class="btn btn-view" onclick="alert('Document coming soon')">View</button>
+          <a href="#" class="btn btn-download">Download</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon">📊</div>
+        <h3>2021-2022</h3>
+        <p>Annual Report for FY 2021-2022</p>
+        <div class="doc-buttons">
+          <button class="btn btn-view" onclick="alert('Document coming soon')">View</button>
+          <a href="#" class="btn btn-download">Download</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINANCIAL STATEMENTS -->
+  <section class="doc-category">
+    <h2>Financial Statements</h2>
+    
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-icon">💰</div>
+        <h3>Budget 2024-2025</h3>
+        <p>Annual Budget & Financial Projections</p>
+        <div class="doc-buttons">
+          <button class="btn btn-view" onclick="alert('Document available soon')">View</button>
+          <a href="#" class="btn btn-download">Download</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon">💰</div>
+        <h3>Audited Accounts 2024</h3>
+        <p>Audited Financial Statements & Balance Sheet</p>
+        <div class="doc-buttons">
+          <button class="btn btn-view" onclick="alert('Document available soon')">View</button>
+          <a href="#" class="btn btn-download">Download</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon">💰</div>
+        <h3>Income & Expenditure</h3>
+        <p>Detailed Financial Summary Report</p>
+        <div class="doc-buttons">
+          <button class="btn btn-view" onclick="alert('Document available soon')">View</button>
+          <a href="#" class="btn btn-download">Download</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon">💰</div>
+        <h3>Fund Utilization</h3>
+        <p>Report on Fund Utilization & Project Spending</p>
+        <div class="doc-buttons">
+          <button class="btn btn-view" onclick="alert('Document available soon')">View</button>
+          <a href="#" class="btn btn-download">Download</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PDF VIEWER MODAL -->
+<div id="pdfModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="modalTitle">Document Viewer</h2>
+      <button class="close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="pdf-placeholder">
+        <p>📄 PDF Viewer</p>
+        <p>Click "Download" to view or save the document to your device.</p>
+        <p>For better viewing experience, please download the PDF file.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>About KPCT</h4>
+      <p>Kandhasamy Public Charitable Trust is dedicated to social development, education, healthcare, and community welfare.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="programs.html">Programs</a>
+      <a href="documents.html">Documents</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-section">
+      <h4>Get In Touch</h4>
+      <p>📧 kpcttrt@gmail.com</p>
+      <p>📱 7708162084</p>
+      <p>📍 Tiruttani, Tamil Nadu</p>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>&copy; 2026 Kandhasamy Public Charitable Trust. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  function openModal(docType) {
+    const modal = document.getElementById('pdfModal');
+    const title = document.getElementById('modalTitle');
+    
+    const docNames = {
+      '12A': '12A Certificate',
+      '80G': '80G Certificate',
+      'CSR': 'CSR Report',
+      'DEED': 'Trust Deed'
+    };
+    
+    title.textContent = docNames[docType] + ' - Viewer';
+    modal.style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('pdfModal').style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById('pdfModal');
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>
