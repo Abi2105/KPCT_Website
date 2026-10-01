@@ -10,7 +10,9 @@ backend/            Express API
   src/server.js     entry point
   src/config.js     environment variables
   src/routes/       API routes (contact)
-  src/store.js      persists submissions to src/data/submissions.json
+  src/store.js      reads/writes contact submissions in Supabase
+  src/supabase.js   service-role Supabase client (server-side only)
+  supabase/schema.sql  table definition to run once in your project
 frontend/           React single-page app
   index.html        Vite entry document (fonts, favicon)
   public/images/    logo and background images
@@ -65,8 +67,27 @@ cp frontend/.env.example frontend/.env
 | --- | --- |
 | `PORT` | Port the API listens on (default `5000`) |
 | `CORS_ORIGIN` | Comma-separated allowed origins (same-origin requests are always allowed) |
-| `SUBMISSIONS_FILE` | Where contact submissions are appended |
 | `NODE_ENV` | `development` or `production` |
+| `SUPABASE_URL` | Project URL, e.g. `https://xxxx.supabase.co` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Service-role key. **Server-side only — never expose it to the frontend** |
+| `SUPABASE_TABLE` | Table holding submissions (default `contact_submissions`) |
+| `ADMIN_API_KEY` | Required to read submissions back via `GET /api/contact`. Empty keeps that endpoint disabled |
+
+### Supabase setup
+
+1. Create a project at [supabase.com](https://supabase.com).
+2. Open **SQL Editor → New query**, paste [`backend/supabase/schema.sql`](backend/supabase/schema.sql)
+   and run it. This creates `contact_submissions` and enables row level security
+   with no public policies, so neither the `anon` nor `authenticated` role can
+   touch the table.
+3. Copy **Project Settings → API → Project URL** into `SUPABASE_URL` and the
+   **`service_role`** key into `SUPABASE_SERVICE_ROLE_KEY` in `backend/.env`.
+4. Set `ADMIN_API_KEY` to any long random string if you want to read
+   submissions back through the API.
+
+The service-role key bypasses row level security. It is read only by the API
+process, is never sent to the browser, and must never be given a `VITE_` prefix
+(anything prefixed `VITE_` is compiled into the public bundle).
 
 `frontend/.env`
 
@@ -101,8 +122,22 @@ process on `PORT`.
 | Method | Path | Description |
 | --- | --- | --- |
 | `GET` | `/api/health` | Liveness check |
-| `POST` | `/api/contact` | Contact/inquiry submission |
+| `POST` | `/api/contact` | Contact/inquiry submission (stored in Supabase) |
+| `GET` | `/api/contact` | Read stored submissions — requires the `x-admin-key` header |
 
 `POST /api/contact` accepts `name`, `email`, `subject`, `message` (all required),
 plus optional `phone`, `interest` and `source`. It returns `201` with
 `{ success, message, id }`, or `400` with per-field `errors`.
+
+`GET /api/contact` returns the stored entries newest first, as
+`{ success, count, submissions }`. Submissions contain personal data, so the
+endpoint requires the admin key and is disabled when `ADMIN_API_KEY` is unset:
+
+```bash
+curl -H "x-admin-key: $ADMIN_API_KEY" http://localhost:5000/api/contact
+curl -H "x-admin-key: $ADMIN_API_KEY" "http://localhost:5000/api/contact?limit=20"
+```
+
+If Supabase is unreachable the API replies `503` with a friendly message and
+logs the underlying error server-side; it never reports a submission as saved
+when it was not.

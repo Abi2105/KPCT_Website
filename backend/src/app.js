@@ -59,7 +59,7 @@ if (fs.existsSync(frontendDist)) {
 app.use((error, req, res, next) => {
   console.error(error);
   if (res.headersSent) return next(error);
-  const status = /CORS/.test(error.message) ? 403 : 500;
+  const status = error.statusCode || (/CORS/.test(error.message) ? 403 : 500);
   return res.status(status).json({ success: false, message: error.message || 'Server error' });
 });
 

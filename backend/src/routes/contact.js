@@ -1,7 +1,8 @@
 const express = require('express');
 const crypto = require('crypto');
 
-const { addSubmission } = require('../store');
+const { adminApiKey } = require('../config');
+const { addSubmission, readSubmissions } = require('../store');
 
 const router = express.Router();
 
@@ -56,14 +57,49 @@ router.post('/', async (req, res, next) => {
       receivedAt: new Date().toISOString(),
     };
 
-    await addSubmission(submission);
-    console.log('Contact submission received:', submission);
+    const saved = await addSubmission(submission);
+    console.log('Contact submission stored:', { id: saved.id, source: saved.source });
 
     return res.status(201).json({
       success: true,
       message: "Message sent successfully! We'll get back to you soon.",
-      id: submission.id,
+      id: saved.id,
     });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+/**
+ * Reads stored submissions back out of Supabase.
+ *
+ * Submissions contain personal data (names, emails, phone numbers), so this is
+ * never public: it requires the ADMIN_API_KEY from backend/.env, sent as an
+ * `x-admin-key` header. With no key configured the endpoint stays disabled.
+ */
+router.get('/', async (req, res, next) => {
+  try {
+    if (!adminApiKey) {
+      return res.status(503).json({
+        success: false,
+        message: 'Reading submissions is disabled. Set ADMIN_API_KEY in backend/.env to enable it.',
+      });
+    }
+
+    const provided = req.get('x-admin-key') || '';
+    const expected = Buffer.from(adminApiKey);
+    const actual = Buffer.from(provided);
+    const authorised =
+      expected.length === actual.length && crypto.timingSafeEqual(expected, actual);
+
+    if (!authorised) {
+      return res.status(401).json({ success: false, message: 'Unauthorized' });
+    }
+
+    const limit = Math.min(Math.max(Number(req.query.limit) || 100, 1), 500);
+    const submissions = await readSubmissions({ limit });
+
+    return res.json({ success: true, count: submissions.length, submissions });
   } catch (error) {
     return next(error);
   }

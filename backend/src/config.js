@@ -13,10 +13,15 @@ module.exports = {
   nodeEnv: process.env.NODE_ENV || 'development',
   isProduction: (process.env.NODE_ENV || 'development') === 'production',
   corsOrigins: parseOrigins(process.env.CORS_ORIGIN || 'http://localhost:5173'),
-  submissionsFile: path.join(
-    __dirname,
-    '..',
-    process.env.SUBMISSIONS_FILE || 'src/data/submissions.json'
-  ),
+
+  // Supabase. The service-role key bypasses row level security, so it stays on
+  // the server: it is never sent to the browser and never prefixed with VITE_.
+  supabaseUrl: process.env.SUPABASE_URL || '',
+  supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
+  supabaseTable: process.env.SUPABASE_TABLE || 'contact_submissions',
+
+  // Guards the endpoint that reads stored submissions back out.
+  adminApiKey: process.env.ADMIN_API_KEY || '',
+
   frontendDist: path.join(__dirname, '..', '..', 'frontend', 'dist'),
 };
