@@ -71,7 +71,7 @@ router.post('/', async (req, res, next) => {
 });
 
 /**
- * Reads stored submissions back out of Supabase.
+ * Reads stored submissions back out of MySQL.
  *
  * Submissions contain personal data (names, emails, phone numbers), so this is
  * never public: it requires the ADMIN_API_KEY from backend/.env, sent as an
