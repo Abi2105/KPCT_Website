@@ -1,0 +1,108 @@
+/* ==========================================================================
+   Documents page
+   ========================================================================== */
+
+.page-documents .doc-intro {
+  display: flex;
+  gap: var(--space-5);
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  margin-bottom: clamp(3rem, 5vw, 4.5rem);
+  background: var(--cream);
+  border: 1px solid var(--gold-200);
+  border-left: 3px solid var(--gold-500);
+  border-radius: var(--radius-lg);
+}
+
+.page-documents .doc-intro h3 {
+  margin-bottom: var(--space-3);
+}
+
+.page-documents .doc-intro p {
+  color: var(--body);
+  margin: 0;
+}
+
+/* ------------------------------------------------------- Document cards */
+.page-documents .doc-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: clamp(1.75rem, 2.5vw, 2.25rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease),
+    border-color var(--t) var(--ease);
+}
+
+.page-documents .doc-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--green-100);
+}
+
+.page-documents .doc-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.page-documents .doc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.4rem 0.9rem 0.4rem 0.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--green-50);
+  border: 1px solid var(--green-100);
+}
+
+.page-documents .doc-badge-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.page-documents .doc-badge-tag {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--green-700);
+}
+
+.page-documents .doc-meta {
+  font-size: var(--text-xs);
+  color: var(--muted);
+  text-align: right;
+}
+
+.page-documents .doc-card h3 {
+  margin-bottom: var(--space-3);
+}
+
+.page-documents .doc-card p {
+  color: var(--muted);
+  font-size: var(--text-base);
+  margin-bottom: var(--space-6);
+}
+
+/* Push the download button to the bottom so cards align */
+.page-documents .doc-download {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* ---------------------------------------------------------- Why it matters */
+.page-documents .doc-info {
+  height: 100%;
+}
+
+.page-documents .doc-info h4 {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-lg);
+}
+
+.page-documents .documents-cta-wrap {
+  padding-bottom: clamp(3.5rem, 6vw, 6rem);
+}

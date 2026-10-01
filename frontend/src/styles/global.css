@@ -1,0 +1,12 @@
+/* ==========================================================================
+   KPCT design system entry point.
+   Page-specific layout lives in the per-page stylesheets (home.css, etc.),
+   each scoped under a .page-* wrapper class.
+   ========================================================================== */
+
+@import './tokens.css';
+@import './base.css';
+@import './layout.css';
+@import './components.css';
+@import './chrome.css';
+@import './hero.css';

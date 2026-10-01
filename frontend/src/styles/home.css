@@ -1,0 +1,140 @@
+/* ==========================================================================
+   Home page
+   ========================================================================== */
+
+.page-home .home-about .section-head {
+  margin-bottom: var(--space-6);
+}
+
+.page-home .home-about p {
+  margin-bottom: var(--space-5);
+}
+
+.page-home .home-about-btn {
+  margin-top: var(--space-3);
+}
+
+/* ------------------------------------------------------------ Impact band */
+.page-home .home-impact .stat-card {
+  height: 100%;
+  padding: clamp(1.75rem, 2.5vw, 2.25rem);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+  backdrop-filter: blur(4px);
+  transition: transform var(--t) var(--ease), background-color var(--t) var(--ease),
+    border-color var(--t) var(--ease);
+}
+
+.page-home .home-impact .stat-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(221, 185, 116, 0.45);
+}
+
+.page-home .stat-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-pill);
+  background: rgba(221, 185, 116, 0.14);
+  border: 1px solid rgba(221, 185, 116, 0.3);
+  font-size: 1.5rem;
+}
+
+.page-home .stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 3vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--gold-400);
+  margin-bottom: var(--space-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.page-home .home-impact h4 {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-lg);
+}
+
+.page-home .stat-text {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.64);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------- Programs */
+.page-home .home-program {
+  height: 100%;
+}
+
+.page-home .home-programs-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+/* ---------------------------------------------------------------- Contact */
+.page-home .home-contact-grid {
+  align-items: start;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.page-home .fact-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.page-home .fact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--gold-200);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  color: var(--ink-soft);
+  transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease),
+    border-color var(--t) var(--ease);
+}
+
+.page-home .fact-list li:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--gold-400);
+}
+
+.page-home .fact-icon {
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.page-home .fact-list strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Form card, shared visual with the contact page */
+.page-home .form-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  padding: clamp(1.75rem, 3vw, 2.75rem);
+  box-shadow: var(--shadow-lg);
+}
+
+.page-home .form-card h3 {
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+/* ----------------------------------------------------------------- Social */
+.page-home .home-social-row {
+  justify-content: center;
+}

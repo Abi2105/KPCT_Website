@@ -1,0 +1,83 @@
+/* ==========================================================================
+   About page
+   ========================================================================== */
+
+.page-about .about-pillar {
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+.page-about .about-pillar + .about-pillar {
+  border-top: 1px solid var(--line);
+}
+
+.page-about .about-pillar-copy h2 {
+  margin-bottom: var(--space-5);
+}
+
+.page-about .about-pillar-copy p {
+  margin-bottom: var(--space-4);
+}
+
+/* -------------------------------------------------------------- Values */
+.page-about .about-value {
+  height: 100%;
+  text-align: center;
+}
+
+.page-about .about-value .icon-tile {
+  margin-inline: auto;
+}
+
+/* ---------------------------------------------------------------- Team */
+.page-about .about-team {
+  text-align: center;
+}
+
+.page-about .team-card {
+  height: 100%;
+  padding: clamp(2rem, 3vw, 2.75rem) clamp(1.5rem, 2.5vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease),
+    border-color var(--t) var(--ease);
+}
+
+.page-about .team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--green-100);
+}
+
+.page-about .team-avatar {
+  display: grid;
+  place-items: center;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto var(--space-5);
+  border-radius: 50%;
+  font-size: 2.6rem;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.5) 0%, transparent 55%),
+    linear-gradient(140deg, var(--gold-200) 0%, var(--green-300) 55%, var(--green-600) 100%);
+  box-shadow: var(--shadow-md), inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  transition: transform var(--t) var(--ease);
+}
+
+.page-about .team-card:hover .team-avatar {
+  transform: scale(1.05);
+}
+
+.page-about .team-card h3 {
+  margin-bottom: var(--space-2);
+}
+
+.page-about .team-card p {
+  color: var(--muted);
+  font-size: var(--text-base);
+}
+
+/* ----------------------------------------------------------------- CTA */
+.page-about .about-cta-wrap {
+  padding-bottom: clamp(3.5rem, 6vw, 6rem);
+}

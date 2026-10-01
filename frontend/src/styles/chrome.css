@@ -1,0 +1,423 @@
+/* ==========================================================================
+   Site chrome: header, primary navigation, mobile drawer, footer
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t) var(--ease), box-shadow var(--t) var(--ease),
+    background-color var(--t) var(--ease);
+}
+
+/* Shadow and hairline appear only once the page is scrolled */
+.site-header.is-stuck {
+  border-bottom-color: var(--line);
+  box-shadow: var(--shadow-sm);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.header-inner {
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.brand-img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  transition: transform var(--t) var(--ease);
+}
+
+.brand:hover .brand-img {
+  transform: scale(1.06);
+}
+
+.brand-text h2 {
+  font-size: 1.25rem;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: var(--green-800);
+  margin: 0;
+}
+
+.brand-text p {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.primary-nav ul {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+  padding: var(--space-2) 0;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--ink-soft);
+  transition: color var(--t) var(--ease);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold-500), var(--green-500));
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--t) var(--ease-out);
+}
+
+.nav-link:hover {
+  color: var(--green-700);
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-link.is-active {
+  color: var(--green-800);
+  font-weight: 600;
+}
+
+.header-cta {
+  flex-shrink: 0;
+}
+
+/* Hamburger — hidden on desktop */
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  transition: background-color var(--t) var(--ease), border-color var(--t) var(--ease);
+}
+
+.nav-toggle:hover {
+  background: var(--green-50);
+  border-color: var(--green-300);
+}
+
+/* Bars are absolutely placed so the open state forms an exact X. */
+.nav-toggle {
+  position: relative;
+}
+
+.nav-toggle span {
+  position: absolute;
+  left: 11px;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--green-800);
+  transition: transform var(--t) var(--ease), opacity var(--t) var(--ease);
+}
+
+.nav-toggle span:nth-child(1) {
+  top: 14px;
+}
+
+.nav-toggle span:nth-child(2) {
+  top: 20px;
+}
+
+.nav-toggle span:nth-child(3) {
+  top: 26px;
+}
+
+.nav-toggle.is-open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.is-open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.nav-backdrop {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .nav-toggle {
+    display: grid;
+  }
+
+  .header-cta {
+    display: none;
+  }
+
+  /* Slide-in drawer replaces the inline nav.
+     The closed drawer is display:none rather than translated off-screen: a
+     fixed element parked beyond the right edge still counts as layout
+     overflow (body overflow-x cannot clip fixed boxes), which widened the
+     whole document on small screens. */
+  .primary-nav {
+    display: none;
+    position: fixed;
+    top: var(--header-h);
+    right: 0;
+    width: min(320px, 82vw);
+    height: calc(100dvh - var(--header-h));
+    padding: var(--space-8) var(--space-6);
+    background: var(--surface);
+    border-left: 1px solid var(--line);
+    box-shadow: var(--shadow-xl);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .primary-nav.is-open {
+    display: block;
+    animation: drawer-in var(--t-slow) var(--ease-out);
+  }
+
+  @keyframes drawer-in {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .primary-nav ul {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-1);
+  }
+
+  .nav-link {
+    display: block;
+    padding: var(--space-4) var(--space-3);
+    border-radius: var(--radius);
+    font-size: var(--text-lg);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+
+  .nav-link.is-active {
+    background: var(--green-50);
+    color: var(--green-800);
+  }
+
+  .nav-drawer-cta {
+    margin-top: var(--space-6);
+  }
+
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: var(--header-h) 0 0;
+    background: rgba(7, 35, 24, 0.42);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--t) var(--ease);
+    z-index: 150;
+  }
+
+  .nav-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (min-width: 901px) {
+  .nav-drawer-cta {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- Footer */
+.site-footer {
+  background: var(--green-900);
+  color: rgba(255, 255, 255, 0.68);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Soft brass glow in the corner */
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 55%;
+  height: 160%;
+  background: radial-gradient(circle, rgba(200, 155, 75, 0.14) 0%, transparent 62%);
+  pointer-events: none;
+}
+
+.footer-main {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1.2fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.footer-col h4 {
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-5);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.footer-brand img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius);
+  padding: 5px;
+}
+
+.footer-brand h3 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.footer-brand span {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+}
+
+.footer-col p {
+  font-size: var(--text-base);
+  line-height: 1.75;
+  margin-bottom: var(--space-3);
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: fit-content;
+  font-size: var(--text-base);
+  color: rgba(255, 255, 255, 0.7);
+  transition: color var(--t) var(--ease), transform var(--t) var(--ease);
+}
+
+.footer-links a::before {
+  content: '→';
+  color: var(--gold-500);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--t) var(--ease), transform var(--t) var(--ease);
+}
+
+.footer-links a:hover {
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.footer-links a:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.footer-contact li {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+.footer-contact a {
+  color: rgba(255, 255, 255, 0.78);
+  transition: color var(--t) var(--ease);
+}
+
+.footer-contact a:hover {
+  color: var(--gold-400);
+}
+
+.footer-social {
+  margin-top: var(--space-6);
+}
+
+.footer-bottom {
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-block: var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 900px) {
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-col-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-main {
+    grid-template-columns: 1fr;
+  }
+}
