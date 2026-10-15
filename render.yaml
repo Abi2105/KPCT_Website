@@ -1,0 +1,45 @@
+# Render Blueprint for the KPCT website.
+#
+# One web service runs both halves: the build installs the backend and frontend
+# workspaces and compiles the React app, then Express serves frontend/dist
+# alongside /api on Render's $PORT.
+#
+# The root `postinstall` script installs backend/ and frontend/ dependencies,
+# so `npm install` alone is enough even if the build command is changed later.
+# frontend/ is installed with --include=dev because Vite lives in
+# devDependencies and Render sets NODE_ENV=production (which otherwise omits it).
+
+services:
+  - type: web
+    name: kpct-website
+    runtime: node
+    plan: free
+    region: singapore
+    branch: main
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      # Allowed browser origins. The deployed site is same-origin with the API,
+      # which is always permitted, so this only matters for extra front ends.
+      - key: CORS_ORIGIN
+        sync: false
+
+      # MySQL connection. Set these in the Render dashboard; never commit values.
+      - key: MYSQL_HOST
+        sync: false
+      - key: MYSQL_PORT
+        sync: false
+      - key: MYSQL_USER
+        sync: false
+      - key: MYSQL_PASSWORD
+        sync: false
+      - key: MYSQL_DATABASE
+        sync: false
+
+      # Optional: enables GET /api/contact when set.
+      - key: ADMIN_API_KEY
+        sync: false
