@@ -49,8 +49,15 @@ app.use('/api', (req, res) => {
 if (fs.existsSync(frontendDist)) {
   app.use(express.static(frontendDist));
   // Client-side routes (/about, /contact, ...) must fall back to index.html.
+  // Requests that name a file (/favicon.ico, /robots.txt, a missing image) must
+  // not: express.static already served the ones that exist, so anything with an
+  // extension reaching here is genuinely missing and has to 404. Returning the
+  // homepage instead made crawlers read HTML as the site icon.
   app.get('*', (req, res) => {
-    res.sendFile(path.join(frontendDist, 'index.html'));
+    if (path.extname(req.path)) {
+      return res.status(404).type('txt').send('Not found');
+    }
+    return res.sendFile(path.join(frontendDist, 'index.html'));
   });
 } else {
   console.warn(`No frontend build found at ${frontendDist}; serving API only.`);
