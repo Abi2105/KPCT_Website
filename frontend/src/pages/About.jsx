@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import MediaCarousel from '../components/MediaCarousel.jsx';
 import MediaPanel from '../components/MediaPanel.jsx';
 import PageHero from '../components/PageHero.jsx';
 import Reveal from '../components/Reveal.jsx';
@@ -33,6 +34,18 @@ const SECTIONS = [
     heading: 'Our Vision',
     reverse: true,
     media: { glyph: '🌟', tone: 'emerald', caption: '🌟 Our Vision' },
+    slides: [
+      {
+        src: '/images/vision-1.jpg',
+        alt: 'Speakers at a KPCT HIV/AIDS awareness session for village panchayats',
+        fit: 'contain',
+      },
+      {
+        src: '/images/vision-2.jpg',
+        alt: 'Panel on stage at the ICAIH 2026 conference on artificial intelligence in healthcare',
+        fit: 'contain',
+      },
+    ],
     paragraphs: [
       'We envision a world where quality education, healthcare, and livelihood opportunities are accessible to all, regardless of their economic circumstances. A world where communities are empowered, voices are heard, and everyone has the chance to reach their full potential.',
       'KPCT strives to create lasting, systemic change that transforms not just individual lives, but entire communities. We believe in the power of collective action and community participation in building sustainable solutions.',
@@ -143,7 +156,16 @@ export default function About() {
               </div>
 
               <Reveal delay={120}>
-                <MediaPanel {...section.media} />
+                {section.slides ? (
+                  <MediaCarousel
+                    slides={section.slides}
+                    caption={section.media.caption}
+                    interval={5000}
+                    controls={false}
+                  />
+                ) : (
+                  <MediaPanel {...section.media} />
+                )}
               </Reveal>
             </div>
           ))}

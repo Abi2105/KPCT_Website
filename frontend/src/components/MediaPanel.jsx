@@ -4,8 +4,22 @@
  * With `src` it shows a photograph; without one it renders a decorative
  * gradient panel carrying the section's glyph. Both variants share the same
  * frame, radius, scrim and caption treatment so mixing them stays consistent.
+ * With `fit="contain"` the photograph is shown whole, over a blurred copy of
+ * itself, instead of being cropped to the panel's shape. With `fit="natural"`
+ * the panel drops its fixed shape and takes the photograph's own proportions;
+ * pass the photo's `width` and `height` so that space is reserved before it loads.
  */
-export default function MediaPanel({ src, alt = '', caption, glyph, tone = 'green', framed = true }) {
+export default function MediaPanel({
+  src,
+  alt = '',
+  caption,
+  glyph,
+  tone = 'green',
+  framed = true,
+  fit = 'cover',
+  width,
+  height,
+}) {
   const TONES = {
     green: ['#1b5c3a', '#0c3423'],
     emerald: ['#26754a', '#11462e'],
@@ -13,12 +27,22 @@ export default function MediaPanel({ src, alt = '', caption, glyph, tone = 'gree
     brass: ['#8f6a2c', '#11462e'],
   };
   const [from, to] = TONES[tone] || TONES.green;
+  const panelClass = !src
+    ? 'media-panel media-panel-figure'
+    : fit === 'natural'
+      ? 'media-panel media-panel-natural'
+      : 'media-panel';
 
   return (
     <div className={framed ? 'media-frame' : undefined}>
-      <div className={src ? 'media-panel' : 'media-panel media-panel-figure'}>
-        {src ? (
-          <img src={src} alt={alt} loading="lazy" />
+      <div className={panelClass}>
+        {src && fit === 'contain' ? (
+          <>
+            <img src={src} alt="" loading="lazy" className="media-backdrop" aria-hidden="true" />
+            <img src={src} alt={alt} loading="lazy" className="media-contain" />
+          </>
+        ) : src ? (
+          <img src={src} alt={alt} loading="lazy" width={width} height={height} />
         ) : (
           <>
             <svg

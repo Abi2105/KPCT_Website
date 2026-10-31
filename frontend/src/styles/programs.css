@@ -123,4 +123,23 @@
     width: 100%;
     min-height: 420px;
   }
+
+  /* A natural-size photo keeps its own height and sits centred in the row */
+  .page-programs .split > .program-media-natural {
+    align-items: center;
+  }
+
+  .page-programs .program-media-natural .media-panel {
+    min-height: 0;
+  }
+
+  /* A boxed photo keeps the standard 4:3 panel, matching the natural-size ones */
+  .page-programs .split > .program-media-boxed {
+    align-items: center;
+  }
+
+  .page-programs .program-media-boxed .media-panel {
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+  }
 }

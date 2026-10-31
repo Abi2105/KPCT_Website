@@ -45,6 +45,19 @@
 }
 
 /* ------------------------------------------------------------ Home hero */
+/* A photo behind a translucent version of the green mesh: densest behind the
+   headline at top left, thinnest at bottom right where the photo shows through */
+.hero {
+  background: var(--green-900) url('/images/hero-bg.jpg') center 70% / cover no-repeat;
+}
+
+.hero::before {
+  background:
+    radial-gradient(ellipse 70% 60% at 12% 18%, rgba(38, 117, 74, 0.4) 0%, transparent 62%),
+    radial-gradient(ellipse 55% 50% at 88% 12%, rgba(200, 155, 75, 0.14) 0%, transparent 60%),
+    linear-gradient(145deg, rgba(7, 35, 24, 0.9) 0%, rgba(12, 52, 35, 0.74) 50%, rgba(17, 70, 46, 0.5) 100%);
+}
+
 .hero-inner {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
@@ -129,8 +142,9 @@
   z-index: 1;
 }
 
+/* One fixed 4:3 frame for every slide: the shape of the 4:3 photos */
 .hero-media .media-panel {
-  aspect-ratio: 5 / 6;
+  aspect-ratio: 4 / 3;
   box-shadow: var(--shadow-xl);
   border: 1px solid rgba(255, 255, 255, 0.14);
 }
@@ -208,10 +222,6 @@
     gap: clamp(2.5rem, 7vw, 4rem);
   }
 
-  .hero-media .media-panel {
-    aspect-ratio: 16 / 10;
-  }
-
   .hero-float {
     left: auto;
     right: var(--space-5);
@@ -286,6 +296,16 @@
 .hero-media .media-caption {
   top: var(--space-5);
   bottom: auto;
+}
+
+/* On phones some slides have faces along the panel's top edge, so the caption
+   drops to the bottom corner, where those photos show only the ground */
+@media (max-width: 560px) {
+  .hero-media .media-carousel.caption-low .media-caption {
+    top: auto;
+    bottom: var(--space-3);
+    left: var(--space-3);
+  }
 }
 
 .hero-media .media-panel::after {

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import MediaCarousel from '../components/MediaCarousel.jsx';
 import MediaPanel from '../components/MediaPanel.jsx';
 import PageHero from '../components/PageHero.jsx';
 import Reveal from '../components/Reveal.jsx';
@@ -15,6 +16,11 @@ const PROGRAMS = [
     reverse: false,
     tone: 'green',
     caption: '📚 Students Learning',
+    image: {
+      src: '/images/students-learning.jpg',
+      alt: 'KPCT nursing assistant students attending a classroom lesson',
+      fit: 'contain',
+    },
     paragraphs: [
       "Education is the foundation for breaking the cycle of poverty. KPCT's educational initiatives ensure that underprivileged children have access to quality learning opportunities, mentorship, and academic support.",
       'Our comprehensive educational support includes scholarship distribution, free coaching classes, digital literacy, and career guidance to help students reach their full potential.',
@@ -38,6 +44,13 @@ const PROGRAMS = [
     reverse: true,
     tone: 'emerald',
     caption: '⚕️ Healthcare Camp',
+    image: {
+      src: '/images/healthcare-camp.jpg',
+      alt: 'KPCT nursing assistant students standing together in their classroom',
+      fit: 'natural',
+      width: 1600,
+      height: 1200,
+    },
     paragraphs: [
       'Access to quality healthcare is a basic right. KPCT conducts regular health camps, awareness programs, and emergency medical assistance to ensure that communities receive preventive and curative healthcare services.',
       'We work with medical professionals to bring healthcare directly to villages and underserved communities, addressing the critical gap in rural health infrastructure.',
@@ -61,6 +74,13 @@ const PROGRAMS = [
     reverse: false,
     tone: 'brass',
     caption: '👩‍💼 Women Training',
+    image: {
+      src: '/images/students-learning.jpg',
+      alt: 'Women trainees attending a KPCT classroom training session',
+      fit: 'natural',
+      width: 1600,
+      height: 1204,
+    },
     paragraphs: [
       'Empowering women is central to community development. KPCT provides skill training, financial literacy, and entrepreneurship support to enable women to become economically independent and self-reliant.',
       'Through self-help groups and focused training programs, we help women acquire income-generating skills and build sustainable livelihoods for themselves and their families.',
@@ -84,6 +104,20 @@ const PROGRAMS = [
     reverse: true,
     tone: 'deep',
     caption: '🎯 Youth Training',
+    slides: [
+      {
+        src: '/images/youth-training-1.jpg',
+        alt: 'Young KPCT trainees seated in an auditorium during a training event',
+        width: 1600,
+        height: 1204,
+      },
+      {
+        src: '/images/youth-training-2.jpg',
+        alt: 'A large group of young KPCT trainees standing in front of their tour bus',
+        width: 1600,
+        height: 1204,
+      },
+    ],
     paragraphs: [
       "Young people are our future leaders and changemakers. KPCT's youth development programs focus on building employment-ready skills, soft skills training, and fostering entrepreneurial mindset among rural youth.",
       'We bridge the gap between education and employment through vocational training, internship opportunities, and mentorship from industry professionals.',
@@ -99,6 +133,13 @@ const PROGRAMS = [
     impact: '500+ youth trained, 200+ placed in employment, 50+ start-ups supported.',
   },
 ];
+
+// On desktop a programme's photo would otherwise stretch to the height of its copy.
+function mediaLayoutClass(program) {
+  if (program.slides || program.image?.fit === 'natural') return 'program-media-natural';
+  if (program.image?.fit === 'contain') return 'program-media-boxed';
+  return undefined;
+}
 
 export default function Programs() {
   useDocumentTitle('Programs | KPCT - Kandhasamy Public Charitable Trust');
@@ -155,12 +196,27 @@ export default function Programs() {
                   </Reveal>
                 </div>
 
-                <Reveal delay={120}>
-                  <MediaPanel
-                    glyph={program.glyph}
-                    tone={program.tone}
-                    caption={program.caption}
-                  />
+                <Reveal delay={120} className={mediaLayoutClass(program)}>
+                  {program.slides ? (
+                    <MediaCarousel
+                      slides={program.slides}
+                      caption={program.caption}
+                      natural
+                      interval={5000}
+                      controls={false}
+                    />
+                  ) : (
+                    <MediaPanel
+                      src={program.image?.src}
+                      alt={program.image?.alt}
+                      fit={program.image?.fit}
+                      width={program.image?.width}
+                      height={program.image?.height}
+                      glyph={program.glyph}
+                      tone={program.tone}
+                      caption={program.caption}
+                    />
+                  )}
                 </Reveal>
               </div>
             </article>

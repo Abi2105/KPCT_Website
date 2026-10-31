@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { sendContactMessage } from '../api/client.js';
 import CountUp from '../components/CountUp.jsx';
+import MediaCarousel from '../components/MediaCarousel.jsx';
 import MediaPanel from '../components/MediaPanel.jsx';
 import Reveal from '../components/Reveal.jsx';
 import SectionHead from '../components/SectionHead.jsx';
@@ -42,6 +43,24 @@ const IMPACT_STATS = [
     title: 'Women Empowered',
     text: 'Skill training and livelihood opportunity programs',
     icon: '✊',
+  },
+];
+
+const HERO_SLIDES = [
+  {
+    src: '/images/activities-bg.jpg',
+    alt: 'KPCT team with community health trainees in Tiruttani',
+  },
+  {
+    src: '/images/community-impact.jpg',
+    alt: 'KPCT women trainees gathered outside the community college in Tiruttani',
+    fit: 'contain',
+    captionLow: true,
+  },
+  {
+    src: '/images/community-impact-2.jpg',
+    alt: 'A large group of KPCT women trainees taking a selfie together outdoors',
+    captionLow: true,
   },
 ];
 
@@ -154,11 +173,12 @@ export default function Home() {
 
           <Reveal delay={200} className="hero-media">
             <span className="hero-ring" aria-hidden="true" />
-            <MediaPanel
-              src="/images/activities-bg.jpg"
-              alt="KPCT team with community health trainees in Tiruttani"
+            <MediaCarousel
+              slides={HERO_SLIDES}
               caption="🌍 Community Impact"
               framed={false}
+              interval={5000}
+              controls={false}
             />
             <div className="hero-float">
               <span className="icon-tile" aria-hidden="true">
