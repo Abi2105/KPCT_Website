@@ -87,10 +87,20 @@
   margin-bottom: var(--space-6);
 }
 
-/* Push the download button to the bottom so cards align */
-.page-documents .doc-download {
+/* Push the View / Download buttons to the bottom so cards align */
+.page-documents .doc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
   margin-top: auto;
-  align-self: flex-start;
+}
+
+/* On phones the two buttons share the row equally */
+@media (max-width: 480px) {
+  .page-documents .doc-actions .btn {
+    flex: 1 1 0;
+    padding-inline: var(--space-4);
+  }
 }
 
 /* ---------------------------------------------------------- Why it matters */

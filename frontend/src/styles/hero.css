@@ -63,7 +63,8 @@
   grid-template-columns: 1.05fr 0.95fr;
   gap: clamp(2.5rem, 5vw, 5rem);
   align-items: center;
-  padding-block: clamp(3.5rem, 8vw, 7.5rem);
+  /* A lighter bottom so the section closes soon after the photo and stats */
+  padding-block: clamp(3.5rem, 8vw, 7.5rem) clamp(2.5rem, 5vw, 4.5rem);
 }
 
 .hero-badge {
@@ -140,6 +141,16 @@
 .hero-media {
   position: relative;
   z-index: 1;
+}
+
+/* Beside the copy, the 4:3 photo would float at the column's centre with a
+   wide gap above it; instead its top lines up with the headline, which sits
+   4rem down (the badge plus its margin). */
+@media (min-width: 1025px) {
+  .hero-media {
+    align-self: start;
+    margin-top: 4rem;
+  }
 }
 
 /* One fixed 4:3 frame for every slide: the shape of the 4:3 photos */
@@ -219,7 +230,7 @@
 @media (max-width: 1024px) {
   .hero-inner {
     grid-template-columns: 1fr;
-    gap: clamp(2.5rem, 7vw, 4rem);
+    gap: clamp(2rem, 6vw, 3.5rem);
   }
 
   .hero-float {

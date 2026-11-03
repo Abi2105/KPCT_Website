@@ -12,7 +12,6 @@ const DOCUMENTS = [
     title: 'Section 12A Certificate',
     text: 'Income Tax exemption certificate under Section 12A of the Income Tax Act. This certifies KPCT as a charitable organization eligible for tax benefits.',
     file: '/reports/12A.pdf',
-    label: '📥 Download 12A',
     meta: 'PDF Format • Updated 2024',
   },
   {
@@ -20,7 +19,6 @@ const DOCUMENTS = [
     title: 'Section 80G Certificate',
     text: 'Donor benefits certificate under Section 80G of the Income Tax Act. Donors can claim tax deductions for contributions to KPCT.',
     file: '/reports/80G.pdf',
-    label: '📥 Download 80G',
     meta: 'PDF Format • Updated 2024',
   },
   {
@@ -28,7 +26,6 @@ const DOCUMENTS = [
     title: 'CSR Compliance Certificate',
     text: "Corporate Social Responsibility compliance certificate. Verification of KPCT's eligibility as a qualified CSR beneficiary organization.",
     file: '/reports/CSR.PDF',
-    label: '📥 Download CSR',
     meta: 'PDF Format • Current Year',
   },
   {
@@ -36,7 +33,6 @@ const DOCUMENTS = [
     title: 'Organization Deed',
     text: "Trust Deed document establishing KPCT as a registered charitable trust. Contains the foundation's mission, objectives, and governance structure.",
     file: '/reports/DEED.pdf',
-    label: '📥 Download Deed',
     meta: 'PDF Format • Official Registration',
   },
 ];
@@ -105,9 +101,25 @@ export default function Documents() {
                   </div>
                   <h3>{doc.title}</h3>
                   <p>{doc.text}</p>
-                  <a href={doc.file} className="btn doc-download" download>
-                    {doc.label}
-                  </a>
+                  <div className="doc-actions">
+                    <a
+                      href={doc.file}
+                      className="btn btn-outline"
+                      target="_blank"
+                      rel="noopener"
+                      aria-label={`View ${doc.title} (opens in a new tab)`}
+                    >
+                      👁️ View
+                    </a>
+                    <a
+                      href={doc.file}
+                      className="btn"
+                      download
+                      aria-label={`Download ${doc.title}`}
+                    >
+                      📥 Download
+                    </a>
+                  </div>
                 </article>
               </Reveal>
             ))}
